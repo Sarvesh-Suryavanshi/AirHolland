@@ -18,8 +18,8 @@ extension RoasterModel: RoasterModelProtocol {
         guard
         let roasterList = LocalStorageManager.shared.fetchLocalRoasterData()
         else {
-            return
             onCompletion(nil)
+            return
         }
         
         let roasterDisplayList = self.process(roasterList: roasterList)
