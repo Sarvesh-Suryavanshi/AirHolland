@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B2D41D02715E3840015724C /* AppDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D41CE2715E3840015724C /* AppDataModel.xcdatamodeld */; };
+		3B2D41D3271636D40015724C /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D41D2271636D40015724C /* LocalStorageManager.swift */; };
 		3B50F6C327155C84008D5392 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50F6C227155C84008D5392 /* AppDelegate.swift */; };
 		3B50F6C527155C84008D5392 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50F6C427155C84008D5392 /* SceneDelegate.swift */; };
 		3B50F6C727155C84008D5392 /* RoasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50F6C627155C84008D5392 /* RoasterViewController.swift */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B2D41CF2715E3840015724C /* AppDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppDataModel.xcdatamodel; sourceTree = "<group>"; };
+		3B2D41D2271636D40015724C /* LocalStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
 		3B50F6BF27155C84008D5392 /* AirHolland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirHolland.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B50F6C227155C84008D5392 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B50F6C427155C84008D5392 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +59,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B2D41D1271636B30015724C /* LocalStorage */ = {
+			isa = PBXGroup;
+			children = (
+				3B2D41CE2715E3840015724C /* AppDataModel.xcdatamodeld */,
+				3B2D41D2271636D40015724C /* LocalStorageManager.swift */,
+			);
+			name = LocalStorage;
+			sourceTree = "<group>";
+		};
 		3B50F6B627155C84008D5392 = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +87,7 @@
 		3B50F6C127155C84008D5392 /* AirHolland */ = {
 			isa = PBXGroup;
 			children = (
+				3B2D41D1271636B30015724C /* LocalStorage */,
 				3B50F6F02715685A008D5392 /* AppExtensions */,
 				3B50F6E927156188008D5392 /* Resources */,
 				3B50F6E827156173008D5392 /* Delegates */,
@@ -269,6 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B2D41D02715E3840015724C /* AppDataModel.xcdatamodeld in Sources */,
 				3B50F6D927155D5F008D5392 /* APIHomepage.swift in Sources */,
 				3B50F6ED271564C0008D5392 /* DashboardBuilder.swift in Sources */,
 				3B50F6EF27156579008D5392 /* RoasterProtocols.swift in Sources */,
@@ -281,6 +296,7 @@
 				3B50F6E627156141008D5392 /* RoasterModel.swift in Sources */,
 				3B50F6C527155C84008D5392 /* SceneDelegate.swift in Sources */,
 				3B50F6F22715686E008D5392 /* AppExtensions.swift in Sources */,
+				3B2D41D3271636D40015724C /* LocalStorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,6 +514,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3B2D41CE2715E3840015724C /* AppDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3B2D41CF2715E3840015724C /* AppDataModel.xcdatamodel */,
+			);
+			currentVersion = 3B2D41CF2715E3840015724C /* AppDataModel.xcdatamodel */;
+			path = AppDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3B50F6B727155C84008D5392 /* Project object */;
 }

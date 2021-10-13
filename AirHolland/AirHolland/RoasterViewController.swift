@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class RoasterViewController: UIViewController {
     
@@ -13,7 +14,7 @@ class RoasterViewController: UIViewController {
     var viewModel: RoasterViewModelProtocol?
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.attributedTitle = NSAttributedString(string: "Refresh Roaster")
+        refreshControl.attributedTitle = NSAttributedString(string: "Refresh Duty Roaster")
         refreshControl.addTarget(self, action: #selector(refreshView), for: .valueChanged)
         return refreshControl
     }()
@@ -21,6 +22,8 @@ class RoasterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        LocalStorageManager.shared.fetchLocalRoasterData()
         self.setupTableView()
         self.loadRoaster()
     }
@@ -29,7 +32,7 @@ class RoasterViewController: UIViewController {
 private extension RoasterViewController {
     
     func setupTableView() {
-        self.tableView.estimatedRowHeight = 50.0
+        self.tableView.estimatedRowHeight = 75.0
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedSectionHeaderHeight = 20.0
         self.tableView.sectionHeaderHeight = UITableView.automaticDimension

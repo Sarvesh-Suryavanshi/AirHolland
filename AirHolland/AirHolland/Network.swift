@@ -35,6 +35,7 @@ class Network {
                 }
                 
                 let outputModel = try decoder.decode(outputType, from: data)
+                DispatchQueue.main.async { LocalStorageManager.shared.save() }
                 completion(.success(outputModel))
             } catch let decodingError {
                 print(decodingError.localizedDescription)
@@ -57,4 +58,8 @@ private extension URLResponse {
             return false
         }
     }
+}
+
+extension CodingUserInfoKey {
+    static let context = CodingUserInfoKey(rawValue: "Context")
 }

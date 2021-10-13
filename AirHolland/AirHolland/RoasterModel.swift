@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class RoasterModel {
 }
@@ -13,13 +14,29 @@ class RoasterModel {
 extension RoasterModel: RoasterModelProtocol {
     
     func loadRoaster(onCompletion: @escaping ([RoasterDisplayData]?) -> Void) {
-        Network.loadAndParse(request: API.fetchRoaster.rawValue, outputType: [Roaster].self) { [weak self] result in
+        
+        guard
+        let roasterList = LocalStorageManager.shared.fetchLocalRoasterData()
+        else {
+            return
+            onCompletion(nil)
+        }
+        
+        let roasterDisplayList = self.process(roasterList: roasterList)
+        onCompletion(roasterDisplayList)
+        return
+        
+        guard let userInfoContextKey = CodingUserInfoKey.context else { return }
+        let decoder = JSONDecoder()
+        decoder.userInfo[userInfoContextKey] = LocalStorageManager.shared.context
+        
+        Network.loadAndParse(request: API.fetchRoaster.rawValue, decoder: decoder, outputType: [Roaster].self) { [weak self] result in
+        
             guard let weakSelf = self else { return }
             switch result {
             case .success(let roasterList):
                 let roasterDisplayList = weakSelf.process(roasterList: roasterList)
                 onCompletion(roasterDisplayList)
-                print(roasterList)
             case .failure(let error):
                 onCompletion(nil)
                 print(error)
