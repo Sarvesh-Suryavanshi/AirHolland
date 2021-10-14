@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+/// Enum describing API Errors
 enum APIError: Error {
     case badRequest
     case networkError
@@ -16,6 +18,7 @@ enum APIError: Error {
 
 class Network {
     
+    /// Loads and Parses given request into given Codable output model
     class func loadAndParse<T: Codable>(request: URLRequest?, decoder: JSONDecoder? = nil,  outputType: T.Type,completion: @escaping (Result<T, APIError>) -> Void) {
         guard let request = request else { return completion(.failure(.badRequest)) }
         let session = URLSession(configuration: URLSessionConfiguration.default)
@@ -29,12 +32,10 @@ class Network {
             decoder.dateDecodingStrategy = .formatted(DateFormatter.ddMMyy)
             
             do {
-                
-                if let jsonString = String(data: data, encoding: .utf8) {
-                    print(jsonString)
-                }
-                
+                // Printing response here for reviewer of the asignment
+                if let jsonString = String(data: data, encoding: .utf8) { print(jsonString) }
                 let outputModel = try decoder.decode(outputType, from: data)
+                DispatchQueue.main.async { LocalStorageManager.shared.save() }
                 completion(.success(outputModel))
             } catch let decodingError {
                 print(decodingError.localizedDescription)
@@ -57,4 +58,8 @@ private extension URLResponse {
             return false
         }
     }
+}
+
+extension CodingUserInfoKey {
+    static let context = CodingUserInfoKey(rawValue: "Context")
 }

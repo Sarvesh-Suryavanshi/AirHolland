@@ -7,25 +7,27 @@
 
 import UIKit
 
+/// Roaster Cell that shows roaster data
 class RoasterCell: UITableViewCell {
     
-    
+    //MARK: - IBOutlets
+
     @IBOutlet weak var roasterImageView: UIImageView!
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
-    
     @IBOutlet weak var flightNumberLabel: UILabel!
     @IBOutlet weak var aircraftTypeLabel: UILabel!
-    
     @IBOutlet weak var firstOfficerLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
     static let reuseIdentifier = "RoasterCell"
     
+    //MARK: - Lifecycle Methods
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.selectionStyle = .none
     }
     
     override func prepareForReuse() {
@@ -33,7 +35,9 @@ class RoasterCell: UITableViewCell {
         self.reset()
     }
     
-    func reset() {
+    //MARK: - Functions
+
+    private func reset() {
         self.roasterImageView.image = nil
         self.titleLabel.text = nil
         self.subtitleLabel.text = nil
@@ -53,5 +57,3 @@ class RoasterCell: UITableViewCell {
         self.aircraftTypeLabel.text = roaster.aircraftType
     }
 }
-
-

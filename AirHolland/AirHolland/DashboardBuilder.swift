@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+/// Responsible for loading Dashboard Views with dependency injection
 class DashboardBuilder {
     
     /// Builder method to create instance of RoasterViewController
