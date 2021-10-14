@@ -10,8 +10,6 @@ import Foundation
 /// Enum representing web services
 enum API {
     
-    // https://rosterbuster.aero/wp-content/uploads/dummy-response.json
-    
     case fetchRoaster
     
     var rawValue: URLRequest? {

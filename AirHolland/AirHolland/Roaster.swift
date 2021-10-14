@@ -5,13 +5,14 @@
 //  Created by Sarvesh Suryavanshi on 12/10/21.
 //
 
-import Foundation
 import CoreData
 
 @objc(Roaster)
 class Roaster: NSManagedObject, Codable {
     
-    // CoreData Managed Properties
+    //MARK: - Managed Properties
+    
+    // CoreData and Codable Properties
     
     @NSManaged var flightNR: String
     @NSManaged var date: Date
@@ -27,55 +28,8 @@ class Roaster: NSManagedObject, Codable {
     @NSManaged var firstOfficer: String
     @NSManaged var flightAttendant: String
     
-    
-    // Decode
-    
-    required convenience init(from decoder: Decoder) throws {
-       guard
-        let moc = decoder.userInfo[CodingUserInfoKey.context!] as? NSManagedObjectContext,
-        let entityDescriptor = NSEntityDescription.entity(forEntityName: "Roaster", in: moc)
-        else {fatalError(" OMG !!") }
-        
-        self.init(entity: entityDescriptor, insertInto: moc)
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.flightNR = try container.decodeIfPresent(String.self, forKey: .flightNR)!
-        self.date = try container.decodeIfPresent(Date.self, forKey: .date)!
-        self.aircraftType = try container.decodeIfPresent(String.self, forKey: .aircraftType)!
-        self.tail = try container.decodeIfPresent(String.self, forKey: .tail)!
-        self.departure = try container.decodeIfPresent(String.self, forKey: .departure)!
-        self.destination = try container.decodeIfPresent(String.self, forKey: .destination)!
-        self.timeOfArrive = try container.decodeIfPresent(String.self, forKey: .timeOfArrive)!
-        self.timeOfDepart = try container.decodeIfPresent(String.self, forKey: .timeOfDepart)!
-        self.dutyID = try container.decodeIfPresent(String.self, forKey: .dutyID)!
-        self.dutyCode = try container.decodeIfPresent(String.self, forKey: .dutyCode)!
-        self.captain = try container.decodeIfPresent(String.self, forKey: .captain)!
-        self.firstOfficer = try container.decodeIfPresent(String.self, forKey: .firstOfficer)!
-        self.flightAttendant = try container.decodeIfPresent(String.self, forKey: .flightAttendant)!
-    }
-    
-    
-    // Encode
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(self.flightNR, forKey: .flightNR)
-        try container.encodeIfPresent(self.date, forKey: .date)
-        try container.encodeIfPresent(self.aircraftType, forKey: .aircraftType)
-        try container.encodeIfPresent(self.tail, forKey: .tail)
-        try container.encodeIfPresent(self.departure, forKey: .departure)
-        try container.encodeIfPresent(self.destination, forKey: .destination)
-        try container.encodeIfPresent(self.timeOfArrive, forKey: .timeOfArrive)
-        try container.encodeIfPresent(self.timeOfDepart, forKey: .timeOfDepart)
-        try container.encodeIfPresent(self.dutyID, forKey: .dutyID)
-        try container.encodeIfPresent(self.dutyCode, forKey: .dutyCode)
-        try container.encodeIfPresent(self.captain, forKey: .captain)
-        try container.encodeIfPresent(self.firstOfficer, forKey: .firstOfficer)
-        try container.encodeIfPresent(self.flightAttendant, forKey: .flightAttendant)
-    }
-    
-    
-    // ----
-    
+    //MARK: - Properties
+
     var displayDate: String {
         let string = DateFormatter.ddMMMyy.string(from: self.date)
         return string
@@ -130,9 +84,55 @@ class Roaster: NSManagedObject, Codable {
         }
     }
     
-    private var dutyIdentifier: Roaster.DutyID? {
+    /// Created computed property for Duty enum as CoreData cannot store enum and structs
+    var dutyIdentifier: Roaster.DutyID? {
         let dutyIdentifier = Roaster.DutyID(rawValue: self.dutyID)
         return dutyIdentifier
+    }
+    
+    //MARK: - Initializers
+    
+    /// Decoder
+    required convenience init(from decoder: Decoder) throws {
+       guard
+        let moc = decoder.userInfo[CodingUserInfoKey.context!] as? NSManagedObjectContext,
+        let entityDescriptor = NSEntityDescription.entity(forEntityName: "Roaster", in: moc)
+        else {fatalError(" OMG !!") }
+        
+        self.init(entity: entityDescriptor, insertInto: moc)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.flightNR = try container.decodeIfPresent(String.self, forKey: .flightNR)!
+        self.date = try container.decodeIfPresent(Date.self, forKey: .date)!
+        self.aircraftType = try container.decodeIfPresent(String.self, forKey: .aircraftType)!
+        self.tail = try container.decodeIfPresent(String.self, forKey: .tail)!
+        self.departure = try container.decodeIfPresent(String.self, forKey: .departure)!
+        self.destination = try container.decodeIfPresent(String.self, forKey: .destination)!
+        self.timeOfArrive = try container.decodeIfPresent(String.self, forKey: .timeOfArrive)!
+        self.timeOfDepart = try container.decodeIfPresent(String.self, forKey: .timeOfDepart)!
+        self.dutyID = try container.decodeIfPresent(String.self, forKey: .dutyID)!
+        self.dutyCode = try container.decodeIfPresent(String.self, forKey: .dutyCode)!
+        self.captain = try container.decodeIfPresent(String.self, forKey: .captain)!
+        self.firstOfficer = try container.decodeIfPresent(String.self, forKey: .firstOfficer)!
+        self.flightAttendant = try container.decodeIfPresent(String.self, forKey: .flightAttendant)!
+    }
+    
+    
+    /// Encoder
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(self.flightNR, forKey: .flightNR)
+        try container.encodeIfPresent(self.date, forKey: .date)
+        try container.encodeIfPresent(self.aircraftType, forKey: .aircraftType)
+        try container.encodeIfPresent(self.tail, forKey: .tail)
+        try container.encodeIfPresent(self.departure, forKey: .departure)
+        try container.encodeIfPresent(self.destination, forKey: .destination)
+        try container.encodeIfPresent(self.timeOfArrive, forKey: .timeOfArrive)
+        try container.encodeIfPresent(self.timeOfDepart, forKey: .timeOfDepart)
+        try container.encodeIfPresent(self.dutyID, forKey: .dutyID)
+        try container.encodeIfPresent(self.dutyCode, forKey: .dutyCode)
+        try container.encodeIfPresent(self.captain, forKey: .captain)
+        try container.encodeIfPresent(self.firstOfficer, forKey: .firstOfficer)
+        try container.encodeIfPresent(self.flightAttendant, forKey: .flightAttendant)
     }
 }
 
